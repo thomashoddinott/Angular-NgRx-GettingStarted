@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { State } from '../../state/app.state'
 
 import { Subscription } from 'rxjs';
 
@@ -24,7 +25,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   constructor(
-    private store: Store<any>,
+    private store: Store<State>,
     private productService: ProductService,   
     ) { }
 
@@ -37,6 +38,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
       next: (products: Product[]) => this.products = products,
       error: err => this.errorMessage = err
     });
+
+    /*
+      copy/paste code from demo2, 3???
+    */
 
     // TODO: Unsubscribe
     this.store.select('products').subscribe(
