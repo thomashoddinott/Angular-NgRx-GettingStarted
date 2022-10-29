@@ -1,4 +1,12 @@
 import { createAction, on, createReducer } from "@ngrx/store";
+import { Product } from "../products/product";
+
+
+export interface ProductState {
+  showProductCode: boolean;
+  currentProduct: Product,
+  products: Product[]
+}
 
 export const productReducer = createReducer(
   { showProductCode: true },
