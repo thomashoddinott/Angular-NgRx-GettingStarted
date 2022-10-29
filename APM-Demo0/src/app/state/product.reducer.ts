@@ -1,6 +1,12 @@
+// File in wrong dir?
+
 import { createAction, on, createReducer } from "@ngrx/store";
 import { Product } from "../products/product";
+import * as AppState from './app.state'
 
+export interface State extends AppState.State {
+  products: ProductState;
+}
 
 export interface ProductState {
   showProductCode: boolean;
