@@ -8,8 +8,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 
 /* NgRx */
-import { StoreModule } from '@ngrx/store'
-import { productReducer } from '../state/product.reducer';
+import { StoreModule } from '@ngrx/store';
+import { productReducer } from './state/product.reducer';
 
 const productRoutes: Routes = [
   { path: '', component: ProductShellComponent }
