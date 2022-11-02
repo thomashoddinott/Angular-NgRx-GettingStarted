@@ -1,49 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-
-import { Product } from '../product';
-
-/* NgRx */
-import { Store } from '@ngrx/store';
-import { State, getShowProductCode, getCurrentProduct, getProducts, getError } from '../state/product.reducer';
-import * as ProductActions from '../state/product.actions';
-import { Observable } from 'rxjs';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { Product } from '../product'
 
 @Component({
   selector: 'pm-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent {
   pageTitle = 'Products';
-  errorMessage$: Observable<string>
-  products$: Observable<Product[]>;
-  selectedProduct$: Observable<Product>
-  displayCode$: Observable<boolean>
 
-  constructor(private store: Store<State>) { }
+  @Input() errorMessage: string;
+  @Input() products: Product[];
+  @Input() displayCode: boolean;
+  @Input() selectedProduct: Product;
+  @Output() displayCodeChanged = new EventEmitter<boolean>();
+  @Output() initializeNewProduct = new EventEmitter<void>();
+  @Output() productWasSelected = new EventEmitter<Product>();
 
-  ngOnInit(): void {
-    this.products$ = this.store.select(getProducts)
-
-    this.errorMessage$ = this.store.select(getError)
-    
-    this.store.dispatch(ProductActions.loadProducts())
-
-    this.selectedProduct$ = this.store.select(getCurrentProduct)
-
-    this.displayCode$ = this.store.select(getShowProductCode);
-  }
-
-  checkChanged(): void {
-    this.store.dispatch(ProductActions.toggleProductCode());
-  }
-
-  newProduct(): void {
-    this.store.dispatch(ProductActions.initializeCurrentProduct());
-  }
-
-  productSelected(product: Product): void {
-    this.store.dispatch(ProductActions.setCurrentProduct({ currentProductId: product.id }));
-  }
-
+  checkChanged = (): void => this.displayCodeChanged.emit()
+  newProduct = (): void => this.initializeNewProduct.emit()
+  productSelected = (product: Product): void => 
+    this.productWasSelected.emit(product)
 }
