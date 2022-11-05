@@ -4,7 +4,7 @@ import { Product } from '../product';
 
 /* NgRx */
 import { Store } from '@ngrx/store';
-import { State, getShowProductCode, getCurrentProduct, getProducts, getError } from '../state/product.reducer';
+import { State, getShowProductCode, getCurrentProduct, getProducts, getError } from '../state';
 import * as ProductActions from '../state/product.actions';
 import { Observable } from 'rxjs';
 
